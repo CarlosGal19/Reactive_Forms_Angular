@@ -16,13 +16,13 @@ export class FormUtils {
     return null;
   }
 
-  static isValidField(form: FormGroup, fieldName: 'name' | 'price' | 'inStock'): boolean | null {
+  static isValidField(form: FormGroup, fieldName: 'name' | 'price' | 'inStock' | 'favorites'): boolean | null {
     return (
       !!form.controls[fieldName].errors &&
       form.controls[fieldName].touched);
   }
 
-  static getFieldError(form: FormGroup, fieldName: 'name' | 'price' | 'inStock'): string | null {
+  static getFieldError(form: FormGroup, fieldName: 'name' | 'price' | 'inStock' | 'favorites'): string | null {
     const errors = form.controls[fieldName].errors ?? {};
     return this.getTextErrors(errors);
   }
