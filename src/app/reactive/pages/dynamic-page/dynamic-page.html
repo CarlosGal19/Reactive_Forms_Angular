@@ -55,9 +55,11 @@
                       Eliminar
                   </button>
                 </div>
-                <span class="form-text text-danger">
-                   Este campo es requerido
-                </span>
+                @if (formUtils.isValidFieldInArray(favoritesGames, i)) {
+                  <span class="form-text text-danger">
+                     {{formUtils.getFieldErrorInArray(myForm, i)}}
+                  </span>
+                }
 
             </div>
           }
