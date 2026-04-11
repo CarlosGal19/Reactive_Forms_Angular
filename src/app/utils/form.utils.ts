@@ -1,5 +1,6 @@
 import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
+type fieldNameType = 'name' | 'price' | 'inStock' | 'favorites' | 'termsAndConditions';
 export class FormUtils {
 
   static getTextErrors(errors: ValidationErrors) {
@@ -16,13 +17,13 @@ export class FormUtils {
     return null;
   }
 
-  static isValidField(form: FormGroup, fieldName: 'name' | 'price' | 'inStock' | 'favorites'): boolean | null {
+  static isValidField(form: FormGroup, fieldName: fieldNameType): boolean | null {
     return (
       !!form.controls[fieldName].errors &&
       form.controls[fieldName].touched);
   }
 
-  static getFieldError(form: FormGroup, fieldName: 'name' | 'price' | 'inStock' | 'favorites'): string | null {
+  static getFieldError(form: FormGroup, fieldName: fieldNameType): string | null {
     const errors = form.controls[fieldName].errors ?? {};
     return this.getTextErrors(errors);
   }
