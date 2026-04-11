@@ -1,7 +1,19 @@
 import { FormArray, FormGroup, ValidationErrors } from "@angular/forms";
 
-type fieldNameType = 'name' | 'price' | 'inStock' | 'favorites' | 'termsAndConditions';
+type fieldNameType =
+  'name'
+  | 'price'
+  | 'inStock'
+  | 'favorites'
+  | 'termsAndConditions'
+  | 'password'
+  | 'email'
+  | 'username';
 export class FormUtils {
+
+  static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
+  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
 
   static getTextErrors(errors: ValidationErrors) {
     for (const key of Object.keys(errors)) {
@@ -12,6 +24,8 @@ export class FormUtils {
           return `Minimum of ${errors['minlength'].requiredLength} characters`
         case 'min':
           return `Minimum value of ${errors['min'].min}`
+        case 'pattern':
+          return 'Invalid due to regular expression'
       }
     }
     return null;
