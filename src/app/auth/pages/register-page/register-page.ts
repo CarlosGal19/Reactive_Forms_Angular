@@ -14,15 +14,43 @@ export class RegisterPage {
   formUtils = FormUtils;
 
   myForm: FormGroup = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.pattern(this.formUtils.namePattern)]],
+    name: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(this.formUtils.namePattern)
+      ]
+    ],
     email: [
       '',
-      [Validators.required, Validators.pattern(this.formUtils.emailPattern)],
-      [this.formUtils.checkServerResponse]
+      [
+        Validators.required,
+        Validators.pattern(this.formUtils.emailPattern)
+      ],
+      [
+        this.formUtils.checkServerResponse
+      ]
     ],
-    username: ['', [Validators.required, Validators.minLength(6)], Validators.pattern(this.formUtils.notOnlySpacesPattern)],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', Validators.required],
+    username: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(this.formUtils.notOnlySpacesPattern),
+        this.formUtils.validateUsername
+      ],
+    ],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(6)
+      ]
+    ],
+    confirmPassword: [
+      '',
+      Validators.required
+    ],
   }, {
     validators: [this.formUtils.fieldsMatch('password', 'confirmPassword')]
   });

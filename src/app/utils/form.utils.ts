@@ -82,4 +82,8 @@ export class FormUtils {
     }
     return null;
   }
+
+  static validateUsername(control: AbstractControl): ValidationErrors | null {
+    return control.value === 'admin_root' ? { invalidUsername: true } : null;
+  }
 }
