@@ -9,6 +9,14 @@ type fieldNameType =
   | 'password'
   | 'email'
   | 'username';
+
+async function sleep() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('Promise resolved successfully')
+    }, 1500)
+  })
+}
 export class FormUtils {
 
   static namePattern = '([a-zA-Z]+) ([a-zA-Z]+)';
@@ -64,5 +72,14 @@ export class FormUtils {
         passwordMismatch: true
       }
     }
+  }
+
+  static async checkServerResponse(control: AbstractControl): Promise<ValidationErrors | null> {
+    await sleep();
+    const formValue = control.value;
+    if (formValue === 'hello@world.com') {
+      return { invalidEmail: true }
+    }
+    return null;
   }
 }

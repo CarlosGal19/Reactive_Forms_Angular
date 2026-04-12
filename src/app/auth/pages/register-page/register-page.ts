@@ -1,4 +1,3 @@
-import { AbstractControl } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +15,11 @@ export class RegisterPage {
 
   myForm: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required, Validators.pattern(this.formUtils.namePattern)]],
-    email: ['', [Validators.required, Validators.pattern(this.formUtils.emailPattern)]],
+    email: [
+      '',
+      [Validators.required, Validators.pattern(this.formUtils.emailPattern)],
+      [this.formUtils.checkServerResponse]
+    ],
     username: ['', [Validators.required, Validators.minLength(6)], Validators.pattern(this.formUtils.notOnlySpacesPattern)],
     password: ['', [Validators.required, Validators.minLength(6)]],
     confirmPassword: ['', Validators.required],
