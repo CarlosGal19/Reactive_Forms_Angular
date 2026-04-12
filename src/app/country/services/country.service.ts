@@ -1,7 +1,7 @@
+import { ICountry } from './../interfaces/country.interface';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ICountry } from '../interfaces/country.interface';
+import { combineLatest, Observable, of } from 'rxjs';
 
 type IRegion = 'africa' | 'americas' | 'asia' | 'europe' | 'oceania';
 
@@ -37,5 +37,17 @@ export class CountryService {
     return this.httpClient.get<ICountry>(url)
   }
 
+  getCountryNamesByCodes(countryCodes: string[]): Observable<ICountry[]> {
+    if (countryCodes.length === 0) return of([]);
 
+    const countriesRequests: Observable<ICountry>[] = []
+
+    countryCodes.forEach(countryCode => {
+      const request = this.getCountryByAlphaCode(countryCode);
+
+      countriesRequests.push(request);
+    });
+
+    return combineLatest(countriesRequests);
+  }
 }
